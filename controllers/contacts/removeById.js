@@ -2,8 +2,8 @@ const contactsOperations = require('../../model/contacts')
 const { NotFound } = require('http-errors')
 const { successResponse } = require('../../helpers')
 
-const removeById = async (req, res, next) => {
-  try {
+const removeById = async (req, res) => {
+  
     const { id } = req.params
     const result = await contactsOperations.removedContact(id)
     if (!result) {
@@ -11,9 +11,7 @@ const removeById = async (req, res, next) => {
     }
 
     successResponse(res, { message: 'Success delete' })
-  } catch (error) {
-    next(error)
-  }
+  
 }
 
 module.exports = removeById
