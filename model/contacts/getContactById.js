@@ -2,7 +2,7 @@ const getAllContacts = require('./getAllContacts')
 
 async function getContactById(id) {
   const allContacts = await getAllContacts()
-  const result = allContacts.find(contact => contact.id === id)
+  const result = allContacts.find(contact => contact.id.toString() === id)
   if (!result) {
     return null
   }

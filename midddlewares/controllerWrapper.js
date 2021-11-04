@@ -1,11 +1,12 @@
-const controllerWraper = controller => {
-  return async (req, res, next) => {
+const controllerWraper = ctrl => {
+  const controller = async (req, res, next) => {
     try {
-      await controller(req, res, next)
+      await ctrl(req, res, next)
     } catch (error) {
       next(error)
     }
   }
+  return controller
 }
 
 module.exports = controllerWraper
