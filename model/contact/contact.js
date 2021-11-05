@@ -5,6 +5,6 @@ const contactsSchema = Schema({
   email: String,
 })
 
-const contact = model('telephone_directory', contactsSchema)
+const contact = model('contacts', contactsSchema)
 
 module.exports = contact
