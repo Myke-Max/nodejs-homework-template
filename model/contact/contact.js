@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose')
-const codeRegexp = /^[0-9]{10}$/
+// const codeRegexp = /^[0-9]{10}$/
 const contactsSchema = Schema({
   name: {
     type: String,
@@ -14,11 +14,12 @@ const contactsSchema = Schema({
     required: true,
   },
   email: { type: String, minLength: 2, maxLength: 30, required: true },
-  code: {
-    type: String,
-    required: true,
-    match: codeRegexp,
-  },
+  favorite: { type: Boolean },
+  // code: {
+  //   type: String,
+  //   required: true,
+  //   match: codeRegexp,
+  // },
   //   status: {
   //     type: String,
   //     enum: ['stock', 'for order', 'discounts'],
@@ -26,6 +27,6 @@ const contactsSchema = Schema({
   //   },
 })
 
-const contact = model('contacts', contactsSchema)
+const Contact = model('contacts', contactsSchema)
 
-module.exports = contact
+module.exports = { Contact }

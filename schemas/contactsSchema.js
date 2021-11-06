@@ -5,6 +5,7 @@ const joiSchema = Joi.object({
   name: shemas.name.required(),
   email: shemas.email.required(),
   phone: shemas.phone.required(),
+  favorite: shemas.favorite,
 })
 
 // const joiSchema = Joi.object({

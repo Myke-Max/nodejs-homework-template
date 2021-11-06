@@ -19,6 +19,8 @@ router.post('/', validation(joiSchema), controllerWrapper(ctrl.add))
 
 router.put('/:id', validation(joiSchema), controllerWrapper(ctrl.updateById))
 
+router.patch('/:id/favorite', validation(joiSchema), controllerWrapper(ctrl.updateStatusContact))
+
 router.delete('/:id', controllerWrapper(ctrl.removeById))
 
 module.exports = router

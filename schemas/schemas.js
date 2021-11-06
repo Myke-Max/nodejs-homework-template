@@ -10,6 +10,7 @@ const schemas = {
   name: Joi.string().pattern(new RegExp(patterns.name)),
   email: Joi.string().pattern(new RegExp(patterns.email)),
   phone: Joi.string().pattern(new RegExp(patterns.phone)),
+  favorite: Joi.boolean(),
 }
 
 module.exports = schemas
