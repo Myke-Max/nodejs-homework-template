@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose')
+const Joi = require('joi')
 // const codeRegexp = /^[0-9]{10}$/
 const contactsSchema = Schema({
   name: {
@@ -27,6 +28,26 @@ const contactsSchema = Schema({
   //   },
 })
 
+const patterns = {
+  phone: /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/,
+  name: /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/,
+  email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+}
+
+const schemas = {
+  name: Joi.string().pattern(new RegExp(patterns.name)),
+  email: Joi.string().pattern(new RegExp(patterns.email)),
+  phone: Joi.string().pattern(new RegExp(patterns.phone)),
+  favorite: Joi.boolean(),
+}
+
+const joiSchema = Joi.object({
+  name: schemas.name.required(),
+  email: schemas.email.required(),
+  phone: schemas.phone.required(),
+  favorite: schemas.favorite,
+})
+
 const Contact = model('contacts', contactsSchema)
 
-module.exports = { Contact }
+module.exports = { Contact, joiSchema }

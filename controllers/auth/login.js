@@ -1,0 +1,37 @@
+const { User } = require('../../model/auth')
+const { NotFound, Unauthorized, BadRequest } = require('http-errors')
+const { compareSync } = require('bcrypt')
+const jwt = require('jsonwebtoken')
+require('dotenv').config()
+
+const { SECRET_KEY } = process.env
+
+const login = async (req, res) => {
+  const { email, password } = req.body
+
+  const user = await User.findOne({ email })
+  // if (!user) {
+  //   throw new NotFound(`user with ${email} not exist`)
+  // }
+  // const correctPassword = compareSync(password, user.password)
+
+  // if (!correctPassword) {
+  //   throw new Unauthorized('email or password are wrong')
+  // }
+
+  if (!user || !user.comparePassword(password)) {
+    throw new BadRequest('email or password are wrong')
+  }
+  const payload = { id: user._id }
+
+  const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '2h' })
+
+  res.status(200).json({
+    status: 'success',
+    code: 200,
+    result: {
+      token,
+    },
+  })
+}
+module.exports = login

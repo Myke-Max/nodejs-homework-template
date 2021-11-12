@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const { validation, controllerWrapper } = require('../../../midddlewares')
 const { contactsControllers: ctrl } = require('../../../controllers')
-const { joiSchema } = require('../../../schemas')
+const { joiSchema } = require('../../../model/contact')
 
 /* 1.Get all contacts.
    2.Get contact by id
