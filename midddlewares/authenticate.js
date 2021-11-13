@@ -16,9 +16,13 @@ const authenticate = async (req, res, next) => {
       // valid token
       const { id } = jwt.verify(token, SECRET_KEY)
       // search the user if have ,if not,error
-      const user = await User.findById(id, 'email') // second arg of method findById its a filter what i need to see in result
+      const user = await User.findById(id) // second arg of method findById its a filter what i need to see in result
       if (!user) {
         throw new NotFound('User not found')
+      }
+      console.log(user)
+      if (!user.token) {
+        throw new Unauthorized('Please Authenticate ')
       }
       // save user to request.user(globally)
       req.user = user

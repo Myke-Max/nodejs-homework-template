@@ -15,6 +15,8 @@ router.get('/', authenticate, controllerWrapper(ctrl.getAll))
 
 router.get('/:id', authenticate, controllerWrapper(ctrl.getById))
 
+router.get('/favorite', authenticate, controllerWrapper(ctrl.getByFavorite))
+
 router.post('/', authenticate, validation(joiSchema), controllerWrapper(ctrl.add))
 
 router.put('/:id', authenticate, validation(joiSchema), controllerWrapper(ctrl.updateById))
