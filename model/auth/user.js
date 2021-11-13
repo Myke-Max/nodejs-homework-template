@@ -21,10 +21,6 @@ const userSchema = Schema(
       type: String,
       default: null,
     },
-    //   owner: {
-    //     type: SchemaTypes.ObjectId,
-    //     ref: 'user',
-    //   },
   },
   { versionKey: false, timestamps: true },
 )
