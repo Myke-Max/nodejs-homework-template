@@ -21,4 +21,11 @@ router.post('/login', validation(joiUserSchema), controllerWrapper(authControlle
 
 router.get('/logout', authenticate, controllerWrapper(authControllers.logout))
 
+router.patch(
+  '/:id/users',
+  authenticate,
+  // validation(joiSchema),
+  controllerWrapper(authControllers.updateSubscription),
+)
+
 module.exports = router
