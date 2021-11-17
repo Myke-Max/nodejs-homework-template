@@ -28,4 +28,6 @@ router.patch(
   controllerWrapper(authControllers.updateSubscription),
 )
 
+router.get('/current', authenticate, controllerWrapper(authControllers.currentUser))
+
 module.exports = router

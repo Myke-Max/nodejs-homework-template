@@ -20,7 +20,7 @@ const authenticate = async (req, res, next) => {
       if (!user) {
         throw new NotFound('User not found')
       }
-      console.log(user)
+
       if (!user.token) {
         throw new Unauthorized('Please Authenticate ')
       }
