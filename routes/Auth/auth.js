@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { controllerWrapper, validation, authenticate } = require('../../midddlewares')
+const { controllerWrapper, validation, authenticate, upload } = require('../../midddlewares')
 const { authControllers } = require('../../controllers/')
 const { joiUserSchema } = require('../../model/auth')
 
@@ -30,4 +30,9 @@ router.patch(
 
 router.get('/current', authenticate, controllerWrapper(authControllers.currentUser))
 
+router.patch(
+  '/:id/avatars',
+  upload.single('images'),
+  controllerWrapper(authControllers.updateImages),
+)
 module.exports = router
