@@ -1,8 +1,8 @@
 const express = require('express')
 const router = express.Router()
-const { validation, controllerWrapper } = require('../../../midddlewares')
+const { authenticate, validation, controllerWrapper } = require('../../../midddlewares')
 const { contactsControllers: ctrl } = require('../../../controllers')
-const { joiSchema } = require('../../../schemas')
+const { joiSchema } = require('../../../model/contact')
 
 /* 1.Get all contacts.
    2.Get contact by id
@@ -11,14 +11,21 @@ const { joiSchema } = require('../../../schemas')
    5.Update contact by id
 */
 
-router.get('/', controllerWrapper(ctrl.getAll))
+router.get('/', authenticate, controllerWrapper(ctrl.getAll))
 
-router.get('/:id', controllerWrapper(ctrl.getById))
+router.get('/:id', authenticate, controllerWrapper(ctrl.getById))
 
-router.post('/', validation(joiSchema), controllerWrapper(ctrl.add))
+router.post('/', authenticate, validation(joiSchema), controllerWrapper(ctrl.add))
 
-router.put('/:id', validation(joiSchema), controllerWrapper(ctrl.updateById))
+router.put('/:id', authenticate, validation(joiSchema), controllerWrapper(ctrl.updateById))
 
-router.delete('/:id', controllerWrapper(ctrl.removeById))
+router.patch(
+  '/:id/favorite',
+  authenticate,
+  validation(joiSchema),
+  controllerWrapper(ctrl.updateStatusContact),
+)
+
+router.delete('/:id', authenticate, controllerWrapper(ctrl.removeById))
 
 module.exports = router
