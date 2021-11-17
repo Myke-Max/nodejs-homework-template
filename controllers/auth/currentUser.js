@@ -3,7 +3,7 @@ const { Unauthorized } = require('http-errors')
 const currentUser = (req, res) => {
   const { email, subscription } = req.user
   const [bearer, token] = req.headers.authorization.split(' ')
-  //   console.log(bearer, token)
+  console.log(bearer, token)
   if (!bearer && !token) {
     throw new Unauthorized('Please sign in')
   }
