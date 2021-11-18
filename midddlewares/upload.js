@@ -1,9 +1,9 @@
 const multer = require('multer')
 const path = require('path')
-const tempDir = path.join(__dirname, '../', 'temp')
-console.log(tempDir)
+const tempDir = path.join(__dirname, '../temp')
 const uploadConfig = multer.diskStorage({
   destination: (req, file, cb) => {
+    console.log(tempDir)
     cb(null, tempDir)
   },
   filename: (req, file, cb) => {

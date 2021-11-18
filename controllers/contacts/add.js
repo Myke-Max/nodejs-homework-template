@@ -8,6 +8,7 @@ const add = async (req, res) => {
   if (!req.body.favorite) {
     req.body.favorite = false
   }
+
   const result = await Contact.create(newContact)
 
   successResponse(res, { result }, 201)

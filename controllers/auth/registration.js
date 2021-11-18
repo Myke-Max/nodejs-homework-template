@@ -6,6 +6,7 @@ const registration = async (req, res) => {
   const { email, password } = req.body
   const gravatar = require('gravatar')
   const avatarURL = gravatar.url(email)
+
   const findDublicateUser = await User.findOne({ email })
   if (findDublicateUser) {
     throw new Conflict(`user with ${email} already exist`)
