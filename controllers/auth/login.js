@@ -1,14 +1,16 @@
 const { User } = require('../../model/auth')
 const { NotFound, Unauthorized, BadRequest } = require('http-errors')
 const { compareSync } = require('bcrypt')
+const path = require('path')
+const fs = require('fs')
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
 
+const tempPath = path.join(__dirname, '../../temp')
 const { SECRET_KEY } = process.env
 
 const login = async (req, res) => {
   const { email, password } = req.body
-
   const user = await User.findOne({ email })
   // if (!user) {
   //   throw new NotFound(`user with ${email} not exist`)

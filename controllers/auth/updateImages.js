@@ -3,23 +3,25 @@ const fs = require('fs/promises')
 const { successResponse } = require('../../helpers')
 const path = require('path')
 const jimp = require('jimp')
+const tempDir = path.join(__dirname, '../../temp')
 
 const usersImageDir = path.join(__dirname, '../../', 'public/users')
 const updateImages = async (req, res, next) => {
   const { id } = req.params
-  const { path: tempDir, originalname } = req.file
+  const { path: tempPath, originalname } = req.file
+  // console.log(req.file)
 
   try {
     const resultUpload = path.join(usersImageDir, `${id} ${originalname}`)
-    await fs.rename(tempDir, resultUpload)
-    const image = path.join('/avatars', `${id} ${originalname}`)
+    await fs.rename(tempPath, resultUpload)
+    const newAvatarURL = path.join('/avatars', `${id} ${originalname}`)
     const resizeAvatar = await jimp.read(resultUpload)
     resizeAvatar.resize(256, 256).write(resultUpload)
-    await User.findByIdAndUpdate(id, { image })
-    req.user.avatarURL = image
-    successResponse(res, image)
+    await User.findByIdAndUpdate(id, { newAvatarURL }, { new: true })
+    successResponse(res, avatarURL)
+
+    fs.rmdir(tempDir)
   } catch (error) {
-    fs.unlink(tempDir)
     next(error)
   }
 }
