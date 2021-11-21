@@ -18,7 +18,7 @@ const updateImages = async (req, res, next) => {
     const resizeAvatar = await jimp.read(resultUpload)
     resizeAvatar.resize(256, 256).write(resultUpload)
     await User.findByIdAndUpdate(id, { newAvatarURL }, { new: true })
-    successResponse(res, avatarURL)
+    successResponse(res, newAvatarURL)
 
     fs.rmdir(tempDir)
   } catch (error) {
