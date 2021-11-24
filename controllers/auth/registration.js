@@ -1,14 +1,20 @@
 const { User } = require('../../model/auth')
 // const bcrypt = require('bcrypt')
 const { Conflict } = require('http-errors')
+const fs = require('fs/promises')
+const path = require('path')
 
+const tempPath = path.join(__dirname, '../temp')
 const registration = async (req, res) => {
   const { email, password } = req.body
+  const gravatar = require('gravatar')
+  const avatarURL = gravatar.url(email)
+  await fs.mkdir(tempPath)
   const findDublicateUser = await User.findOne({ email })
   if (findDublicateUser) {
     throw new Conflict(`user with ${email} already exist`)
   }
-  const newUser = new User({ email })
+  const newUser = new User({ email, avatarURL })
   // newUser={email}
   newUser.setPassword(password)
   // function method inside the model setPassword

@@ -6,7 +6,7 @@ const updateById = async (req, res) => {
   const { body } = req
   const { id } = req.params
 
-  const result = await Contact.findByIdAndUpdate(id, body, { new: true })
+  const result = await Contact.findByIdAndUpdate({ owner: id }, body, { new: true })
   if (!result) {
     throw new NotFound(`Contact with id ${id} not found`)
   }

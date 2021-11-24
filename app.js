@@ -14,6 +14,7 @@ app.use(cors())
 
 // if the request has a body then execute json.parse()(string json to object)
 app.use(express.json())
+app.use(express.static('public'))
 
 app.use('/api/contacts', contactsRouter)
 app.use('/api/auth', authRouter)
