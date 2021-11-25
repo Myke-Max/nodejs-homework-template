@@ -9,7 +9,7 @@ const reSendingVerify = async (req, res, next) => {
   const user = await User.findOne({ email })
   const { verificationToken } = user
   if (user.verify) {
-    return res.json({ message: 'Verification has already been passed' })
+    return next(res.json({ message: 'Verification has already been passed' }))
   }
   const mail = {
     to: 'scart1992@mail.ru',
