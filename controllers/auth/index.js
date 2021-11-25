@@ -4,5 +4,15 @@ const logout = require('./logout')
 const updateSubscription = require('../auth/updateSubscription')
 const currentUser = require('./currentUser')
 const updateImages = require('./updateImages')
-
-module.exports = { registration, login, logout, updateSubscription, currentUser, updateImages }
+const verify = require('./verify')
+const reSendingVerify = require('./reSendingVerify')
+module.exports = {
+  registration,
+  login,
+  logout,
+  updateSubscription,
+  currentUser,
+  updateImages,
+  verify,
+  reSendingVerify,
+}
