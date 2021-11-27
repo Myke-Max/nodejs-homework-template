@@ -1,5 +1,5 @@
 const { User } = require('../../model/auth')
-const sendEmail = require('../../sendGrid')
+const sendEmail = require('../../services/email/nodeMailer')
 const reSendingVerify = async (req, res, next) => {
   const { email } = req.body
 
@@ -13,12 +13,13 @@ const reSendingVerify = async (req, res, next) => {
   }
   const mail = {
     to: 'scart1992@mail.ru',
-    subject: 'test sendGrid',
+    subject: 'test nodeMailer',
     html: `<a href="http://localhost:3000/api/auth/verify/${verificationToken}">Нажмите для подтверждения email</a>`,
   }
 
   await User.findOneAndUpdate(user.email, { verificationToken })
-  await sendEmail(mail)
+  const send = await sendEmail(mail)
+  console.log(send)
   return res.json({ message: 'Verification email sent' })
 }
 module.exports = reSendingVerify
